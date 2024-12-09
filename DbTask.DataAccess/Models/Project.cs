@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DbTask.DataAccess.Models
 {
-    public class Project
+    public class Project : Entity
     {
-        public long Id { get; set; }
         public string Name { get; set; }
     }
 }
