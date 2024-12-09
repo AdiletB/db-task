@@ -9,18 +9,20 @@ using Microsoft.Data.SqlClient;
 
 namespace DbTask.DataAccess
 {
-    public class Database
+    internal class Database
     {
         private string connectionString;
 
         private static Database instance;
-        public static Database Instance => instance ??= new Database();
+        internal static Database Instance => instance ??= new Database();
 
         private Database()
         {
             connectionString = "Server=(local);Integrated Security=SSPI;Initial Catalog=testdb;TrustServerCertificate=True";
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+
         }
 
-        public SqlConnection Connection => new SqlConnection(connectionString);
+        internal SqlConnection Connection => new SqlConnection(connectionString);
     }
 }
