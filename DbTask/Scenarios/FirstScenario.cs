@@ -17,8 +17,6 @@ namespace DbTask.Tests.Scenarios
         [Test]
         public void UpdateAuthorForChromeTests()
         {
-            //Track ids
-            
             DbUtils.UpdateTestAuthors("Chrome", NewAuthorId);
 
             Assert.That(DbUtils.GetTests("Chrome").All(t => t.AuthorId == NewAuthorId));

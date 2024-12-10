@@ -1,5 +1,6 @@
 ﻿using DbTask.DataAccess.Commands.Projects;
 using DbTask.DataAccess.Commands.Tests;
+using DbTask.DataAccess.Models;
 using DbTask.DataAccess.Queries.Tests;
 using DbTask.Tests.Utils;
 
@@ -8,7 +9,7 @@ namespace DbTask.Tests.Scenarios
     public class SecondScenario : BaseTest
     {
         protected long NewProjectId { get; set; }
-        protected List<long> NewTestIds { get; set; }
+        protected List<long> TrackedTests { get; set; }
 
 
         [OneTimeSetUp]
@@ -20,14 +21,14 @@ namespace DbTask.Tests.Scenarios
         [OneTimeTearDown]
         public void DeleteEntities()
         {
-            new RemoveTestsByIds(NewTestIds).Execute();
+            new RemoveTestsByIds(TrackedTests).Execute();
             new RemoveProject(NewProjectId).Execute();
         }
 
         [Test]
         public void CopyChromeTests()
         {
-            NewTestIds = new CreateTests(DbUtils.GetTests("Chrome").Select(t =>
+            TrackedTests = new CreateTests(DbUtils.GetTests("Chrome").Select(t =>
             {
                 t.ProjectId = NewProjectId;
                 t.AuthorId = NewAuthorId;
@@ -35,7 +36,7 @@ namespace DbTask.Tests.Scenarios
             })).Execute();
 
 
-            Assert.That(DbUtils.GetTestsByIds(NewTestIds)
+            Assert.That(DbUtils.GetTestsByIds(TrackedTests)
                                .All(t => t.AuthorId == NewAuthorId && t.ProjectId == NewProjectId));
         }
 
@@ -44,10 +45,19 @@ namespace DbTask.Tests.Scenarios
         {
             string replaceEnv = "NewEnv";
 
-            new UpdateTestsEnvByIds(replaceEnv, NewTestIds).Execute();
+            new UpdateTestsEnvByIds(replaceEnv, TrackedTests).Execute();
 
-            Assert.That(DbUtils.GetTestsByIds(NewTestIds)
+            Assert.That(DbUtils.GetTestsByIds(TrackedTests)
                                .All(t => t.Env == replaceEnv));
+        }
+
+        [Test]
+        public void UpdateTestsStatus()
+        {
+            long skipped = new GetTestsByStatus(Status.SKIPPED).Execute().Count();
+            long updated = new UpdateTestsStatus(Status.FAILED, Status.SKIPPED).Execute();
+
+            Assert.That(skipped == updated);
         }
     }
 }

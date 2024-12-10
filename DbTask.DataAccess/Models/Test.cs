@@ -11,7 +11,7 @@ namespace DbTask.DataAccess.Models
     public class Test : Entity
     {
         public string Name {  get; set; }
-        public int StatusId { get; set; }
+        public Status StatusId { get; set; }
         public string MethodName { get; set; }
         public long ProjectId { get; set; }
         public long SessionId {  get; set; }
