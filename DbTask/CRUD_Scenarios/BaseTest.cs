@@ -23,7 +23,7 @@ namespace DbTask.Tests.CRUD_Scenarios
         public void DeleteAuthor()
         {
             if (NewAuthorId != null)
-                new RemoveAuthorById((long)NewAuthorId).Execute();
+                new RemoveAuthor((long)NewAuthorId).Execute();
         }
     }
 }

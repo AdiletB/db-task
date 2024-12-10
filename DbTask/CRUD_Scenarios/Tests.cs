@@ -19,9 +19,7 @@ namespace DbTask.Tests.Scenarios
         {
             UpdateTestAuthors("Chrome", NewAuthorId);
 
-            var chromeTests = GetTests("Chrome");
-
-            Assert.That(chromeTests.All(t => t.AuthorId == NewAuthorId));
+            Assert.That(GetTests("Chrome").All(t => t.AuthorId == NewAuthorId));
         }
 
         [Test]
@@ -35,7 +33,7 @@ namespace DbTask.Tests.Scenarios
                     t.Browser = "Safari";
                     return t;
                 }
-                ).ToList()
+                )
             ).Execute();
 
             var safariTests = GetTests("Safari");
@@ -46,10 +44,17 @@ namespace DbTask.Tests.Scenarios
         [Test]
         public void SetSafariAuthorsToNull()
         {
-            int all = GetTests("Safari").Count;
-            long updated = UpdateTestAuthors("Safari");
+            UpdateTestAuthors("Safari");
 
-            Assert.That(updated == all);
+            Assert.That(GetTests("Safari").All(t => t.AuthorId == NewAuthorId));
+        }
+
+        [Test]
+        public void DeleteSafariTests()
+        {
+            new RemoveTests(GetTests("Safari").Select(t => t.Id)).Execute();
+
+            Assert.That(GetTests("Safari").Count == 0);
         }
 
         [OneTimeTearDown]
@@ -59,9 +64,9 @@ namespace DbTask.Tests.Scenarios
                 UpdateTestAuthors("Chrome");
         }
 
-        private List<Test> GetTests(string browser) => new GetByBrowser("Safari").Execute();
+        private List<Test> GetTests(string browser) => new GetByBrowser(browser).Execute();
 
-        private long UpdateTestAuthors(string browser, long? authorId = null) 
-            => new UpdateAuthorWhereBrowserEqualsTo(browser, authorId).Execute();
+        private void UpdateTestAuthors(string browser, long? authorId = null) 
+            => new UpdateWhereBrowserEqualsTo(browser, authorId).Execute();
     }
 }

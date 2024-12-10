@@ -7,11 +7,11 @@ using Dapper;
 
 namespace DbTask.DataAccess.Commands.Authors
 {
-    public class RemoveAuthorById : ICommand
+    public class RemoveAuthor : ICommand
     {
         public long AuthorId { get; set; }
 
-        public RemoveAuthorById(long authorId)
+        public RemoveAuthor(long authorId)
         {
             AuthorId = authorId;
         }

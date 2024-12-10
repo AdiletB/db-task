@@ -4,12 +4,12 @@ using DbTask.DataAccess.Models;
 
 namespace DbTask.DataAccess.Commands.Tests
 {
-    public class UpdateAuthorWhereBrowserEqualsTo : ICommand
+    public class UpdateWhereBrowserEqualsTo : ICommand
     {
         protected string Browser { get; private set; }
         protected long? AuthorId { get; private set; }
 
-        public UpdateAuthorWhereBrowserEqualsTo(string browser, long? authorId)
+        public UpdateWhereBrowserEqualsTo(string browser, long? authorId)
         {
             Browser = browser;
             AuthorId = authorId;

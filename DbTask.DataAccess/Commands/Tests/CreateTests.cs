@@ -10,9 +10,9 @@ namespace DbTask.DataAccess.Commands.Tests
 {
     public class CreateTests : ICommand
     {
-        protected List<Test> NewTests { get; private set; }
+        protected IEnumerable<Test> NewTests { get; private set; }
 
-        public CreateTests(List<Test> newTests)
+        public CreateTests(IEnumerable<Test> newTests)
         {
             NewTests = newTests;
         }
