@@ -1,7 +1,7 @@
 ﻿using DbTask.DataAccess.Commands.Authors;
 using DbTask.DataAccess.Models;
 
-namespace DbTask.Tests.CRUD_Scenarios
+namespace DbTask.Tests.Scenarios
 {
     public class BaseTest
     {

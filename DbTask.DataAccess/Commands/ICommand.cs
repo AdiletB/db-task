@@ -2,8 +2,8 @@
 
 namespace DbTask.DataAccess.Commands
 {
-    public interface ICommand
+    public interface ICommand<out T>
     {
-        public long Execute();
+        public T Execute();
     }
 }

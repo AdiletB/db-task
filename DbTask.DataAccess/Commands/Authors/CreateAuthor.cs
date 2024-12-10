@@ -3,7 +3,7 @@ using DbTask.DataAccess.Models;
 
 namespace DbTask.DataAccess.Commands.Authors
 {
-    public class CreateAuthor : ICommand
+    public class CreateAuthor : ICommand<long>
     {
         protected Author NewAuthor { get; set; }
         public CreateAuthor(Author newAuthor)
