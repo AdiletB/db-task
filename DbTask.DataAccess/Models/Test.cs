@@ -20,22 +20,5 @@ namespace DbTask.DataAccess.Models
         public string Env { get; set; }
         public string? Browser {  get; set; }
         public long? AuthorId { get; set; }
-
-        public override bool Equals(object? obj)
-        {
-            var other = obj as Test;
-            if (other == null) return false;
-
-            // :(
-            return Name == other.Name
-                   && StatusId == other.StatusId
-                   && MethodName == other.MethodName
-                   && ProjectId == other.ProjectId
-                   && SessionId == other.SessionId
-                   && StartTime == other.StartTime
-                   && EndTime == other.EndTime
-                   && Env == other.Env
-                   && AuthorId == other.AuthorId;
-        }
     }
 }

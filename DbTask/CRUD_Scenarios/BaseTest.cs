@@ -5,7 +5,7 @@ namespace DbTask.Tests.CRUD_Scenarios
 {
     public class BaseTest
     {
-        protected long NewAuthorId { get; set; }
+        protected long? NewAuthorId { get; set; }
 
         [OneTimeSetUp]
         public void CreateAuthor()
@@ -22,7 +22,8 @@ namespace DbTask.Tests.CRUD_Scenarios
         [OneTimeTearDown]
         public void DeleteAuthor()
         {
-            new RemoveAuthorById(NewAuthorId).Execute();
+            if (NewAuthorId != null)
+                new RemoveAuthorById((long)NewAuthorId).Execute();
         }
     }
 }

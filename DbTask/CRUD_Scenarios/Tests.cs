@@ -17,17 +17,17 @@ namespace DbTask.Tests.Scenarios
         [Test]
         public void UpdateAuthorForChromeTests()
         {
-            new UpdateAuthorWhereBrowserEqualsTo("Chrome", NewAuthorId).Execute();
+            UpdateTestAuthors("Chrome", NewAuthorId);
 
-            var chromeTests = new GetByBrowser("Chrome").Execute();
-            
+            var chromeTests = GetTests("Chrome");
+
             Assert.That(chromeTests.All(t => t.AuthorId == NewAuthorId));
         }
 
         [Test]
         public void CreateSafariTests()
         {
-            var fireFoxTests = new GetByBrowser("Firefox").Execute();
+            var fireFoxTests = GetTests("FireFox");
 
             new CreateTests(
                 fireFoxTests.Select(t =>
@@ -38,15 +38,30 @@ namespace DbTask.Tests.Scenarios
                 ).ToList()
             ).Execute();
 
-            var safariTests = new GetByBrowser("Safari").Execute();
+            var safariTests = GetTests("Safari");
 
             Assert.That(safariTests.SequenceEqual(fireFoxTests, new TestComparer()));
         }
 
-        [OneTimeTearDown]
-        public void SetAuthorsToNull()
+        [Test]
+        public void SetSafariAuthorsToNull()
         {
-            new UpdateAuthorWhereBrowserEqualsTo("Chrome", null).Execute();
+            int all = GetTests("Safari").Count;
+            long updated = UpdateTestAuthors("Safari");
+
+            Assert.That(updated == all);
         }
+
+        [OneTimeTearDown]
+        public void SetChromeAuthorsToNull()
+        {
+            if (NewAuthorId != null)
+                UpdateTestAuthors("Chrome");
+        }
+
+        private List<Test> GetTests(string browser) => new GetByBrowser("Safari").Execute();
+
+        private long UpdateTestAuthors(string browser, long? authorId = null) 
+            => new UpdateAuthorWhereBrowserEqualsTo(browser, authorId).Execute();
     }
 }
