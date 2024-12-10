@@ -54,7 +54,7 @@ namespace DbTask.Tests.Scenarios
         [Test]
         public void DeleteSafariTests()
         {
-            new RemoveTests(DbUtils.GetTests("Safari").Select(t => t.Id)).Execute();
+            new RemoveTestsByIds(DbUtils.GetTests("Safari").Select(t => t.Id)).Execute();
 
             Assert.That(DbUtils.GetTests("Safari").Count == 0);
         }
@@ -62,10 +62,7 @@ namespace DbTask.Tests.Scenarios
         [OneTimeTearDown]
         public void SetChromeAuthorsToNull()
         {
-            if (NewAuthorId != null)
-                DbUtils.UpdateTestAuthors("Chrome");
+            DbUtils.UpdateTestAuthors("Chrome");
         }
-
-        
     }
 }

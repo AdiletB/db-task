@@ -7,11 +7,11 @@ using Dapper;
 
 namespace DbTask.DataAccess.Commands.Tests
 {
-    public class RemoveTests : ICommand<long>
+    public class RemoveTestsByIds : ICommand<long>
     {
         protected IEnumerable<long> Ids { get; private set; }
 
-        public RemoveTests(IEnumerable<long> ids)
+        public RemoveTestsByIds(IEnumerable<long> ids)
         {
             Ids = ids;
         }

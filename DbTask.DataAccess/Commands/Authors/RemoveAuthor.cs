@@ -9,7 +9,7 @@ namespace DbTask.DataAccess.Commands.Authors
 {
     public class RemoveAuthor : ICommand<long>
     {
-        public long AuthorId { get; set; }
+        protected long AuthorId { get; private set; }
 
         public RemoveAuthor(long authorId)
         {

@@ -15,5 +15,7 @@ namespace DbTask.Tests.Utils
 
         public static void UpdateTestAuthors(string browser, long? authorId = null)
             => new UpdateTestsAuthorByBrowser(browser, authorId).Execute();
+
+        public static List<Test> GetTestsByIds(List<long> ids) => new GetTestsByIds(ids).Execute();
     }
 }
