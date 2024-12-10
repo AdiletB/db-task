@@ -1,22 +1,28 @@
-﻿using DbTask.DataAccess.Models;
+﻿using DbTask.DataAccess.Commands.Authors;
+using DbTask.DataAccess.Models;
 
 namespace DbTask.Tests.CRUD_Scenarios
 {
     public class BaseTest
     {
-        protected List<Entity> Entities { get; } = new List<Entity>();
-        protected long NewAuthorId { get; private set; }
+        protected long NewAuthorId { get; set; }
 
         [OneTimeSetUp]
         public void CreateAuthor()
         {
-        
+            NewAuthorId = new CreateAuthor(
+                new()
+                {
+                    Email = "a@mail.com",
+                    Login = "Schmo",
+                    Name = "Joe"
+                }).Execute();
         }
 
         [OneTimeTearDown]
-        public void DeleteEntities()
+        public void DeleteAuthor()
         {
-
+            new RemoveAuthorById(NewAuthorId).Execute();
         }
     }
 }
