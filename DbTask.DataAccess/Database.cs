@@ -4,18 +4,15 @@ namespace DbTask.DataAccess
 {
     internal class Database
     {
-        private string connectionString;
-
         private static Database instance;
         internal static Database Instance => instance ??= new Database();
+        internal string ConnectionString { get; set; }
 
         private Database()
         {
-            connectionString = "Server=(local);Integrated Security=SSPI;Initial Catalog=testdb;TrustServerCertificate=True";
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-
         }
 
-        internal SqlConnection Connection => new SqlConnection(connectionString);
+        internal SqlConnection Connection => new SqlConnection(ConnectionString);
     }
 }
