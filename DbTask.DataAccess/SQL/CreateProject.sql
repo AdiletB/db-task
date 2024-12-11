@@ -1,0 +1,1 @@
+﻿INSERT INTO project(name) OUTPUT INSERTED.id VALUES(@Name)
