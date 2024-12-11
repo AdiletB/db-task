@@ -1,17 +1,19 @@
 ﻿using DbTask.DataAccess.Commands.Tests;
 using DbTask.DataAccess.Models;
+using DbTask.DataAccess.Queries;
 using DbTask.Tests.Utils;
 
 namespace DbTask.Tests.Scenarios
 {
     public class FirstScenario : BaseTest
     {
+        protected Tests_ Tests { get; } = new();
+
         [Test]
         public void UpdateAuthorForChromeTests()
         {
-            DbUtils.UpdateTestAuthors("Chrome", NewAuthorId);
-
-            Assert.That(DbUtils.GetTests("Chrome").All(t => t.AuthorId == NewAuthorId));
+            var tests = Tests.GetByBrowser("Chrome");
+            Assert.That(DbUtils.GetTests("Chrome").All(t => t.AuthorId == CreatedAuthorId));
         }
 
         [Test]
@@ -38,7 +40,7 @@ namespace DbTask.Tests.Scenarios
         {
             DbUtils.UpdateTestAuthors("Safari");
 
-            Assert.That(DbUtils.GetTests("Safari").All(t => t.AuthorId == NewAuthorId));
+            Assert.That(DbUtils.GetTests("Safari").All(t => t.AuthorId == CreatedAuthorId));
         }
 
         [Test]

@@ -1,6 +1,7 @@
 ﻿using DbTask.DataAccess.Commands.Projects;
 using DbTask.DataAccess.Commands.Tests;
 using DbTask.DataAccess.Models;
+using DbTask.DataAccess.Queries;
 using DbTask.DataAccess.Queries.Tests;
 using DbTask.Tests.Utils;
 
@@ -8,21 +9,24 @@ namespace DbTask.Tests.Scenarios
 {
     public class SecondScenario : BaseTest
     {
-        protected long NewProjectId { get; set; }
+        protected int NewProjectId { get; set; }
         protected List<long> TrackedTestsIds { get; set; }
+
+        protected Projects Projects { get; } = new();
 
 
         [OneTimeSetUp]
         public void CreateProject()
         {
-            NewProjectId = new CreateProject(new() { Name = "newproj" }).Execute();
+            NewProjectId = Projects.Create(new() { Name = "newproj" });
         }
 
         [OneTimeTearDown]
         public void DeleteEntities()
         {
             new RemoveTestsByIds(TrackedTestsIds).Execute();
-            new RemoveProject(NewProjectId).Execute();
+            
+            Projects.Remove(NewProjectId);
         }
 
         [Test]
@@ -31,13 +35,13 @@ namespace DbTask.Tests.Scenarios
             TrackedTestsIds = new CreateTests(DbUtils.GetTests("Chrome").Select(t =>
             {
                 t.ProjectId = NewProjectId;
-                t.AuthorId = NewAuthorId;
+                t.AuthorId = CreatedAuthorId;
                 return t;
             })).Execute();
 
 
             Assert.That(DbUtils.GetTestsByIds(TrackedTestsIds)
-                               .All(t => t.AuthorId == NewAuthorId && t.ProjectId == NewProjectId));
+                               .All(t => t.AuthorId == CreatedAuthorId && t.ProjectId == NewProjectId));
         }
 
         [Test]
