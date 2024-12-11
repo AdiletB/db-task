@@ -13,6 +13,6 @@ namespace DbTask.DataAccess
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
 
-        internal SqlConnection Connection => new SqlConnection(ConnectionString);
+        internal SqlConnection Connection => new(ConnectionString);
     }
 }
