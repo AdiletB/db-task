@@ -1,5 +1,4 @@
 ﻿using DbTask.DataAccess.Commands.Authors;
-using DbTask.DataAccess.Models;
 
 namespace DbTask.Tests.Scenarios
 {

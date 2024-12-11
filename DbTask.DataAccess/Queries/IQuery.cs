@@ -1,5 +1,4 @@
 ﻿using DbTask.DataAccess.Models;
-using System.Collections.Generic;
 
 namespace DbTask.DataAccess.Queries
 {

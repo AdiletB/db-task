@@ -5,7 +5,7 @@ namespace DbTask.DataAccess.Commands.Authors
 {
     public class CreateAuthor : ICommand<long>
     {
-        protected Author NewAuthor { get; set; }
+        protected Author NewAuthor { get; private set; }
         public CreateAuthor(Author newAuthor)
         {
             NewAuthor = newAuthor;
@@ -13,7 +13,7 @@ namespace DbTask.DataAccess.Commands.Authors
 
         public long Execute()
         {
-            using(var connection = Database.Instance.Connection)
+            using (var connection = Database.Instance.Connection)
             {
                 connection.Open();
 

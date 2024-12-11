@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-using Dapper;
-using DbTask.DataAccess.Models;
+﻿using Dapper;
 
 namespace DbTask.DataAccess.Commands.Tests
 {

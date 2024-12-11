@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Dapper;
 using DbTask.DataAccess.Models;
 
@@ -22,11 +17,11 @@ namespace DbTask.DataAccess.Commands.Tests
         {
             var returnIds = new List<long>();
 
-            using(var connection = Database.Instance.Connection)
+            using (var connection = Database.Instance.Connection)
             {
                 connection.Open();
 
-                foreach(var test in NewTests)
+                foreach (var test in NewTests)
                 {
                     try
                     {
@@ -38,7 +33,7 @@ namespace DbTask.DataAccess.Commands.Tests
 
                         returnIds.Add(id);
                     }
-                    catch(Exception exc)
+                    catch (Exception exc)
                     {
                         Debug.WriteLine(exc.Message);
 

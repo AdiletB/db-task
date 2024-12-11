@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DbTask.DataAccess.Commands.Authors;
-using DbTask.DataAccess.Commands.Tests;
+﻿using DbTask.DataAccess.Commands.Tests;
 using DbTask.DataAccess.Models;
-using DbTask.DataAccess.Queries.Tests;
-using DbTask.Tests.Scenarios;
 using DbTask.Tests.Utils;
 
 namespace DbTask.Tests.Scenarios

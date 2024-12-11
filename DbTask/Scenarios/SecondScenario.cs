@@ -9,7 +9,7 @@ namespace DbTask.Tests.Scenarios
     public class SecondScenario : BaseTest
     {
         protected long NewProjectId { get; set; }
-        protected List<long> TrackedTests { get; set; }
+        protected List<long> TrackedTestsIds { get; set; }
 
 
         [OneTimeSetUp]
@@ -21,14 +21,14 @@ namespace DbTask.Tests.Scenarios
         [OneTimeTearDown]
         public void DeleteEntities()
         {
-            new RemoveTestsByIds(TrackedTests).Execute();
+            new RemoveTestsByIds(TrackedTestsIds).Execute();
             new RemoveProject(NewProjectId).Execute();
         }
 
         [Test]
         public void CopyChromeTests()
         {
-            TrackedTests = new CreateTests(DbUtils.GetTests("Chrome").Select(t =>
+            TrackedTestsIds = new CreateTests(DbUtils.GetTests("Chrome").Select(t =>
             {
                 t.ProjectId = NewProjectId;
                 t.AuthorId = NewAuthorId;
@@ -36,7 +36,7 @@ namespace DbTask.Tests.Scenarios
             })).Execute();
 
 
-            Assert.That(DbUtils.GetTestsByIds(TrackedTests)
+            Assert.That(DbUtils.GetTestsByIds(TrackedTestsIds)
                                .All(t => t.AuthorId == NewAuthorId && t.ProjectId == NewProjectId));
         }
 
@@ -45,9 +45,9 @@ namespace DbTask.Tests.Scenarios
         {
             string replaceEnv = "NewEnv";
 
-            new UpdateTestsEnvByIds(replaceEnv, TrackedTests).Execute();
+            new UpdateTestsEnvByIds(replaceEnv, TrackedTestsIds).Execute();
 
-            Assert.That(DbUtils.GetTestsByIds(TrackedTests)
+            Assert.That(DbUtils.GetTestsByIds(TrackedTestsIds)
                                .All(t => t.Env == replaceEnv));
         }
 

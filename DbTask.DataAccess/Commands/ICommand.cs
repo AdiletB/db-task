@@ -1,6 +1,4 @@
-﻿using DbTask.DataAccess.Models;
-
-namespace DbTask.DataAccess.Commands
+﻿namespace DbTask.DataAccess.Commands
 {
     public interface ICommand<out T>
     {
