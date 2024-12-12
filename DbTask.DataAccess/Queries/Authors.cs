@@ -7,12 +7,12 @@ namespace DbTask.DataAccess.Queries
     {
         public int Create(Author author)
         {
-            return Execute<int>(QueryName.CreateAuthor, author).First();
+            return Read<int>(QueryName.CreateAuthor, author).First();
         }
 
         public void RemoveAuthor(int authorId)
         {
-            Execute<int>(QueryName.RemoveAuthor, new { AuthorId = authorId });
+            Read<int>(QueryName.RemoveAuthorById, new { authorId });
         }
     }
 }

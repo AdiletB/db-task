@@ -3,9 +3,16 @@
     public enum QueryName
     {
         CreateAuthor,
-        RemoveAuthor,
+        RemoveAuthorById,
+
         CreateProject,
-        RemoveProject,
-        GetTestsByBrowser
+        RemoveProjectById,
+
+        GetTestsByBrowser,
+        GetTestsByIds,
+        GetTestsByStatus,
+        CreateTests,
+        RemoveTestsByIds,
+        SetTestsAuthorByBrowser
     }
 }

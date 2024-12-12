@@ -12,11 +12,11 @@ namespace DbTask.DataAccess.Queries
     {
         public int Create(Project project)
         {
-            return Execute<int>(QueryName.CreateProject, project).First();
+            return Read<int>(QueryName.CreateProject, project).First();
         }
         public void Remove(int projectId)
         {
-            Execute<int>(QueryName.RemoveProject, new { ProjectId = projectId });
+            Read<int>(QueryName.RemoveProjectById, new { projectId });
         }
     }
 }

@@ -1,0 +1,3 @@
+DELETE FROM test 
+OUTPUT DELETED.id
+WHERE id IN @Ids
