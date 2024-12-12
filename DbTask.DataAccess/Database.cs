@@ -14,5 +14,12 @@ namespace DbTask.DataAccess
         }
 
         internal SqlConnection Connection => new(ConnectionString);
+
+        internal SqlConnection OpenConnection()
+        {
+            Connection.Open();
+
+            return Connection;
+        }
     }
 }

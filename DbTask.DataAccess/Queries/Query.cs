@@ -14,14 +14,19 @@ namespace DbTask.DataAccess.Queries
     {
         protected Query() { }
         
-        protected List<T> Execute<T>(QueryName queryName, object? parameters = null)
+        protected List<T> Read<T>(QueryName queryName, object? parameters = null)
         {
-            string sql = File.ReadAllText(@$"SQL\{queryName}.sql");
-
-            using var connection = Database.Instance.Connection;
-            connection.Open();
-
-            return connection.Query<T>(sql, parameters).ToList();
+            using var connection = Database.Instance.OpenConnection();
+            return connection.Query<T>(GetSql(queryName), parameters).ToList();
         }
+
+        protected int Write(QueryName queryName, object? parameters = null)
+        {
+            using var connection = Database.Instance.OpenConnection();
+            return connection.Execute(GetSql(queryName), parameters);
+        }
+
+        private string GetSql(QueryName queryName)
+            => File.ReadAllText(@$"SQL\{queryName}.sql");
     }
 }
