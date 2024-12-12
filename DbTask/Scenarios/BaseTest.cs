@@ -20,9 +20,8 @@ namespace DbTask.Tests.Scenarios
         }
 
         [OneTimeTearDown]
-        public void DeleteAuthor()
+        public void RemoveAuthor()
         {
-            //new RemoveAuthor(CreatedAuthorId).Execute();
             Authors.RemoveAuthor(CreatedAuthorId);
         }
     }

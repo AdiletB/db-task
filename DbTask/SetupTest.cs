@@ -1,5 +1,4 @@
 ﻿using DbTask.DataAccess;
-using DbTask.Tests.Utils;
 
 namespace DbTask.Tests
 {

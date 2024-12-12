@@ -1,60 +1,50 @@
-﻿using DbTask.DataAccess.Commands.Tests;
-using DbTask.DataAccess.Models;
-using DbTask.DataAccess.Queries;
-using DbTask.Tests.Utils;
+﻿using DbTask.DataAccess.Queries;
+using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DbTask.Tests.Scenarios
 {
     public class FirstScenario : BaseTest
     {
-        protected Tests_ Tests { get; } = new();
+        protected DataAccess.Queries.Tests Tests { get; } = new();
+        protected List<int> TrackedTests { get; private set; }
+
+
+        [OneTimeTearDown]
+        public void ResetChromeTestsAuthor()
+        {
+            Tests.SetAuthor(null, "Chrome");
+        }
 
         [Test]
-        public void UpdateAuthorForChromeTests()
+        public void SetChromeTestsAuthor()
         {
-            var tests = Tests.GetByBrowser("Chrome");
-            Assert.That(DbUtils.GetTests("Chrome").All(t => t.AuthorId == CreatedAuthorId));
+            Tests.SetAuthor(CreatedAuthorId, "Chrome");
+
+            Assert.That(Tests.GetByBrowser("Chrome").All(t => t.AuthorId == CreatedAuthorId));
         }
 
         [Test]
         public void CreateSafariTests()
         {
-            var fireFoxTests = DbUtils.GetTests("FireFox");
-
-            new CreateTests(
-                fireFoxTests.Select(t =>
+            var firefoxTests = Tests.GetByBrowser("Firefox");
+            
+            Tests.Create(
+                firefoxTests.Select(t =>
                 {
                     t.Browser = "Safari";
                     return t;
-                }
-                )
-            ).Execute();
+                }).ToList()
+            );
 
-            var safariTests = DbUtils.GetTests("Safari");
+            var safariTests = Tests.GetByBrowser("Safari");
 
-            Assert.That(safariTests.SequenceEqual(fireFoxTests, new TestComparer()));
-        }
-
-        [Test]
-        public void SetSafariAuthorsToNull()
-        {
-            DbUtils.UpdateTestAuthors("Safari");
-
-            Assert.That(DbUtils.GetTests("Safari").All(t => t.AuthorId == CreatedAuthorId));
-        }
-
-        [Test]
-        public void DeleteSafariTests()
-        {
-            new RemoveTestsByIds(DbUtils.GetTests("Safari").Select(t => t.Id)).Execute();
-
-            Assert.That(DbUtils.GetTests("Safari").Count == 0);
-        }
-
-        [OneTimeTearDown]
-        public void SetChromeAuthorsToNull()
-        {
-            DbUtils.UpdateTestAuthors("Chrome");
+            safariTests.Should().BeEquivalentTo(firefoxTests, options =>
+                options.Excluding(test => test.Id));
         }
     }
 }
