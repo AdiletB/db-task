@@ -11,6 +11,6 @@
         public DateTime? EndTime { get; set; }
         public string Env { get; set; }
         public string? Browser { get; set; }
-        public long? AuthorId { get; set; }
+        public int? AuthorId { get; set; }
     }
 }
