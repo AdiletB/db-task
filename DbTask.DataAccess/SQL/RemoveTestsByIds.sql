@@ -1,3 +1,1 @@
-DELETE FROM test 
-OUTPUT DELETED.id
-WHERE id IN @Ids
+DELETE FROM test WHERE id IN @Ids

@@ -14,32 +14,25 @@ namespace DbTask.DataAccess.Queries
         {
             return Read<Test>(QueryName.GetTestsByBrowser, new { browser });
         }
-        
-        public List<Test> GetByIds(List<int> ids)
-        {
-            return Read<Test>(QueryName.GetTestsByIds, ids);
-        }
 
         public List<Test> GetByStatus(Status status)
         {
             return Read<Test>(QueryName.GetTestsByStatus, new { status });
         }
 
-        public int Create(List<Test> tests)
+        public int Create(IEnumerable<Test> tests)
         {
             return Write(QueryName.CreateTests, tests);
         }
 
-        public List<int> Delete(List<int> ids)
+        public int Delete(IEnumerable<int> ids)
         {
-            //WRITE?
-            return Read<int>(QueryName.RemoveTestsByIds, ids);
+            return Write(QueryName.RemoveTestsByIds, new { ids });
         }
 
-        public List<int> SetAuthor(int? authorId, string browser)
+        public int SetAuthor(int? authorId, string browser)
         {
-            //WRITE?
-            return Read<int>(QueryName.SetTestsAuthorByBrowser, new { authorId, browser });
+            return Write(QueryName.SetTestsAuthorByBrowser, new { authorId, browser });
         }
     }
 }
