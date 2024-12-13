@@ -1,4 +1,4 @@
-﻿namespace DbTask.DataAccess.Models
+﻿namespace DbTask.DataAccess.Enums
 {
     public enum Status
     {
