@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DbTask.DataAccess.Enums;
+﻿using DbTask.DataAccess.Enums;
 using DbTask.DataAccess.Models;
 
 namespace DbTask.DataAccess.Queries
@@ -25,14 +20,24 @@ namespace DbTask.DataAccess.Queries
             return Write(QueryName.CreateTests, tests);
         }
 
-        public int Delete(IEnumerable<int> ids)
+        public int Remove(IEnumerable<int> ids)
         {
             return Write(QueryName.RemoveTestsByIds, new { ids });
         }
 
-        public int SetAuthor(int? authorId, string browser)
+        public int SetAuthorByBrowser(int? authorId, string browser)
         {
             return Write(QueryName.SetTestsAuthorByBrowser, new { authorId, browser });
+        }
+
+        public int SetEnv(IEnumerable<int> ids, string env)
+        {
+            return Write(QueryName.SetTestsEnvByIds, new { ids, env });
+        }
+
+        public int SetStatus(IEnumerable<int> ids, Status status)
+        {
+            return Write(QueryName.SetTestsStatusByIds, new { ids, status });
         }
     }
 }

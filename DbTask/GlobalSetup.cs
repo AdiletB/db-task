@@ -9,7 +9,7 @@ namespace DbTask.Tests
         protected JsonFile Config { get; } = new("config.json");
 
         [OneTimeSetUp]
-        public void Setup() 
+        public void Setup()
             => DbConfig.ConnectionString = Config.Get<string>("connectionString");
     }
 }

@@ -1,1 +1,0 @@
-SELECT * FROM test WHERE id IN @Ids

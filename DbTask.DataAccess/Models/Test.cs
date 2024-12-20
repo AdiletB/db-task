@@ -1,4 +1,6 @@
-﻿namespace DbTask.DataAccess.Models
+﻿using DbTask.DataAccess.Enums;
+
+namespace DbTask.DataAccess.Models
 {
     public class Test : Entity
     {

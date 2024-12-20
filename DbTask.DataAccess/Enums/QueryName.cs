@@ -9,10 +9,11 @@
         RemoveProjectById,
 
         GetTestsByBrowser,
-        GetTestsByIds,
         GetTestsByStatus,
         CreateTests,
         RemoveTestsByIds,
-        SetTestsAuthorByBrowser
+        SetTestsAuthorByBrowser,
+        SetTestsEnvByIds,
+        SetTestsStatusByIds
     }
 }

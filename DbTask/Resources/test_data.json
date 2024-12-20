@@ -4,5 +4,10 @@
     "Email": "a@mail.com",
     "Login": "Schmo",
     "Name": "Joe"
-  }
+  },
+  "newProject": {
+    "Id": -1,
+    "Name": "QwertyProj"
+  },
+  "newEnv": "QwertyEnv"
 }

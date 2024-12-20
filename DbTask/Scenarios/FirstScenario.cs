@@ -2,15 +2,13 @@
 
 namespace DbTask.Tests.Scenarios
 {
-    using Tests = DataAccess.Queries.Tests;
     public class FirstScenario : BaseTest
     {
-        protected Tests Tests { get; } = new();
-
         [Test, Order(1)]
+
         public void SetChromeTestsAuthor()
         {
-            Tests.SetAuthor(CreatedAuthorId, "Chrome");
+            Tests.SetAuthorByBrowser(CreatedAuthorId, "Chrome");
 
             var chromeTests = Tests.GetByBrowser("Chrome");
 
@@ -21,7 +19,7 @@ namespace DbTask.Tests.Scenarios
         public void CreateSafariTests()
         {
             var firefoxTests = Tests.GetByBrowser("Firefox");
-            
+
             Tests.Create(
                 firefoxTests.Select(t =>
                 {
@@ -39,7 +37,7 @@ namespace DbTask.Tests.Scenarios
         [Test, Order(3)]
         public void SetSafariTestsAuthor()
         {
-            Tests.SetAuthor(null, "Safari");
+            Tests.SetAuthorByBrowser(null, "Safari");
             var safariTests = Tests.GetByBrowser("Safari");
 
             safariTests.Should().OnlyContain(t => t.AuthorId == null);
@@ -50,7 +48,7 @@ namespace DbTask.Tests.Scenarios
         {
             var safariTests = Tests.GetByBrowser("Safari");
 
-            int deleted = Tests.Delete(safariTests.Where(t => t.AuthorId is null)
+            int deleted = Tests.Remove(safariTests.Where(t => t.AuthorId is null)
                                                   .Select(t => t.Id)
                                                   .ToList());
 
@@ -60,7 +58,7 @@ namespace DbTask.Tests.Scenarios
         [OneTimeTearDown]
         public void ResetChromeTestsAuthor()
         {
-            Tests.SetAuthor(null, "Chrome");
+            Tests.SetAuthorByBrowser(null, "Chrome");
         }
     }
 }
